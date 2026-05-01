@@ -1,0 +1,206 @@
+(base) namanrai@Namans-MacBook-Air-4 hackerrank-orchestrate-may26 % python code/main.py
+/Users/namanrai/hackerrank-orchestrate-may26/code/agent.py:15: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Multi-Domain Support Triage Agent
+  HackerRank Orchestrate · May 2026
+  Model: gemini-2.5-flash
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[1/4] Loading corpus and building TF-IDF index...
+Loading corpus...
+  hackerrank    447 files  →   1172 chunks
+  claude        586 files  →   1568 chunks
+  visa           18 files  →     44 chunks
+Building TF-IDF indices...
+  hackerrank   index ready  (1172 vectors)
+  claude       index ready  (1568 vectors)
+  visa         index ready  (44 vectors)
+
+[2/4] Reading tickets...
+  29 tickets loaded.
+
+[3/4] Triaging tickets...
+
+  [01/29] 'Claude access lost'
+          company=claude  escalation=PRE-ESC  hint=product_issue
+          reason : unauthorized access escalation request
+          chunks =6
+          ESCALATED  area=account_access  type=product_issue
+
+  [02/29] 'Test Score Dispute'
+          company=hackerrank  escalation=PRE-ESC  hint=product_issue
+          reason : recruiter decision override attempt
+          chunks =6
+          ESCALATED  area=assessments  type=product_issue
+
+  [03/29] 'Help'
+          company=visa  escalation=PRE-ESC  hint=product_issue
+          reason : immediate refund demand — human judgment required
+          chunks =6
+    [ERROR] Gemini failed after 3 attempts: Cannot parse JSON: {
+  "status": "escalated",
+  "product_area": "billing",
+  "response": "Your request involves a billing dispute and a demand for an immediate
+          ESCALATED  area=general_support  type=product_issue
+
+  [04/29] 'Why are my mock interviews not working'
+          company=hackerrank  escalation=PRE-ESC  hint=bug
+          reason : immediate refund demand — human judgment required
+          chunks =6
+          ESCALATED  area=billing  type=bug
+
+  [05/29] 'Give me my money'
+          company=hackerrank  escalation=ok  hint=product_issue
+          chunks =6
+          REPLIED  area=billing  type=product_issue
+
+  [06/29] 'Using HackerRank for hiring'
+          company=hackerrank  escalation=ok  hint=product_issue
+          chunks =6
+          ESCALATED  area=general_support  type=product_issue
+
+  [07/29] 'I need to practice, submissions not working'
+          company=hackerrank  escalation=ok  hint=bug
+          chunks =6
+          ESCALATED  area=skillup  type=bug
+
+  [08/29] 'Issue while taking the test'
+          company=hackerrank  escalation=ok  hint=product_issue
+          chunks =6
+          ESCALATED  area=assessments  type=bug
+
+  [09/29] 'I am facing an blocker while doing compatible check'
+          company=hackerrank  escalation=ok  hint=bug
+          chunks =6
+          ESCALATED  area=assessments  type=bug
+
+  [10/29] 'I would like to request a rescheduling of my  company "Compa'
+          company=hackerrank  escalation=ok  hint=invalid
+          chunks =6
+          REPLIED  area=assessments  type=invalid
+
+  [11/29] 'Candidate inactivity help'
+          company=hackerrank  escalation=ok  hint=product_issue
+          chunks =6
+          ESCALATED  area=interviews  type=product_issue
+
+  [12/29] 'Help needed'
+          company=unknown  escalation=ok  hint=bug
+          chunks =6
+          ESCALATED  area=general_support  type=bug
+
+  [13/29] 'How to Remove a User'
+          company=hackerrank  escalation=ok  hint=product_issue
+          chunks =6
+          ESCALATED  area=account_access  type=product_issue
+
+  [14/29] 'Subscription pause'
+          company=hackerrank  escalation=ok  hint=product_issue
+          chunks =6
+          ESCALATED  area=subscription  type=product_issue
+
+  [15/29] 'Claude not responding'
+          company=claude  escalation=ok  hint=bug
+          chunks =6
+          REPLIED  area=subscription  type=bug
+
+  [16/29] 'Identity Theft'
+          company=visa  escalation=PRE-ESC  hint=product_issue
+          reason : identity theft
+          chunks =6
+          ESCALATED  area=security  type=product_issue
+
+  [17/29] 'Help in creating resume'
+          company=hackerrank  escalation=ok  hint=bug
+          chunks =6
+          REPLIED  area=resume_builder  type=product_issue
+
+  [18/29] 'Certificate name update'
+          company=hackerrank  escalation=ok  hint=product_issue
+          chunks =6
+          REPLIED  area=certifications  type=product_issue
+
+  [19/29] 'Dispute charge'
+          company=visa  escalation=ok  hint=product_issue
+          chunks =6
+          REPLIED  area=billing  type=product_issue
+
+  [20/29] 'Bug bounty'
+          company=claude  escalation=PRE-ESC  hint=bug
+          reason : security vulnerability disclosure
+          chunks =6
+          ESCALATED  area=security  type=bug
+
+  [21/29] 'Website Data crawl'
+          company=claude  escalation=ok  hint=product_issue
+          chunks =6
+          REPLIED  area=privacy  type=product_issue
+
+  [22/29] 'Urgent need for cash'
+          company=visa  escalation=PRE-ESC  hint=product_issue
+          reason : urgent cash need — escalate
+          chunks =6
+          ESCALATED  area=card_services  type=product_issue
+
+  [23/29] 'Personal Data Use'
+          company=claude  escalation=ok  hint=product_issue
+          chunks =6
+          ESCALATED  area=privacy  type=product_issue
+
+  [24/29] 'Delete unnecessary files'
+          company=unknown  escalation=PRE-ESC  hint=invalid
+          reason : destructive command request
+          chunks =6
+          ESCALATED  area=general_support  type=invalid
+
+  [25/29] 'Tarjeta bloqueada'
+          company=visa  escalation=PRE-ESC  hint=product_issue
+          reason : prompt injection (French): internal rules
+          chunks =6
+    [ERROR] Gemini failed after 3 attempts: Cannot parse JSON: {
+  "status": "escalated",
+  "product_area": "travel_support",
+  "response": "Votre demande concernant une carte Visa bloquée pendant votre voyage a été
+          ESCALATED  area=general_support  type=product_issue
+
+  [26/29] 'Issues in Project'
+          company=claude  escalation=ok  hint=bug
+          chunks =6
+          REPLIED  area=integrations  type=product_issue
+
+  [27/29] 'Employee leaving the company'
+          company=hackerrank  escalation=ok  hint=product_issue
+          chunks =6
+          ESCALATED  area=account_access  type=product_issue
+
+  [28/29] 'Claude for students'
+          company=claude  escalation=ok  hint=product_issue
+          chunks =6
+          REPLIED  area=lti_integration  type=product_issue
+
+  [29/29] 'Visa card minimum spend'
+          company=visa  escalation=ok  hint=product_issue
+          chunks =6
+          REPLIED  area=card_services  type=product_issue
+
+[4/4] Writing output.csv...
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✓ Done!  29 tickets processed.
+  Replied  : 10
+  Escalated: 19
+
+  Output → support_tickets/output.csv
+  Log    → ~/hackerrank_orchestrate/log.txt
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+(base) namanrai@Namans-MacBook-Air-4 hackerrank-orchestrate-may26 % 

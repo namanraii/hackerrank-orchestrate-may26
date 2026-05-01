@@ -1,0 +1,24 @@
+# Access the Compliance API
+
+The Compliance API is generally available to Enterprise plans, excluding Public Sector organizations.
+Enterprise plan Primary Owners can enable the Compliance API by navigating to
+Organization settings > Data and privacy
+and clicking "Enable" under
+Compliance API
+.
+Once the Compliance API is enabled, create new compliance access keys by clicking "+ Create key":
+Creating a compliance access key will allow you to start pulling activity logs, chat data, and file content programmatically.
+You can download the Compliance API PDF by clicking the link at the bottom of this article.
+Audit log events in the Compliance API
+The Compliance API now includes audit log events, giving you a full view across all your Claude deployments. To see which events are recorded via audit logs, refer to
+How to access audit logs
+.
+Compliance API technical documentation
+Attachment icon
+Compliance API.pdf
+Related Articles
+Enforce network-level access control with Tenant Restrictions
+How can I check connectivity to the Claude API?
+Use Claude Cowork on Team and Enterprise plans
+Claude Enterprise Analytics API: Access engagement and adoption data
+Monitor Claude Cowork activity with OpenTelemetry

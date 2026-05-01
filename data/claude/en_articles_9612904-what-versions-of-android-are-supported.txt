@@ -1,0 +1,9 @@
+# What versions of Android are supported?
+
+We currently support Android 8.0 Oreo and above.
+Related Articles
+What is the Enterprise plan?
+Using dictation on Claude Mobile
+Using the Claude Widget on Android
+FAQs on Using Claude for Education at Your University
+Using Claude with Android Apps

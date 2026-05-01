@@ -1,0 +1,16 @@
+# Customizing your Console appearance settings
+
+How to change your Console color mode
+Log in to your Console account.
+Navigate to
+Settings > Appearance
+.
+Select from Light, System, or Dark under
+Color mode
+.
+Related Articles
+Customizing your appearance settings
+Creating and managing Workspaces in the Claude Console
+Set up single sign-on (SSO)
+Logging in to your Console account
+Inviting members to the Claude Console

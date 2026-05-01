@@ -1,0 +1,9 @@
+# Claude’s response to my prompt is too brief.
+
+Claude’s context window applies to the prompts you provide but not the output it generates. If its responses are too brief or only partially complete, consider retooling your prompts. We recommend giving Claude the previous prompt and response when writing your next prompt to pick up where it left off.
+Related Articles
+Claude is providing incorrect or misleading responses. What’s going on?
+Using Claude in Slack
+Claude for Nonprofits Partnership Guide for All Users
+Give Claude context: CLAUDE.md and better prompts
+Claude Code cheatsheet

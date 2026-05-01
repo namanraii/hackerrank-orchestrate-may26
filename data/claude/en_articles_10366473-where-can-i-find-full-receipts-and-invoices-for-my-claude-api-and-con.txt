@@ -1,0 +1,26 @@
+# Where can I find full receipts and invoices for my Claude API and Console payments?
+
+Invoices are visible to Console Billing and Admin roles.
+Follow these steps to view your Console invoices:
+Log in to the Console with an Admin or Billing role.
+Navigate to
+Console Settings > Billing
+.
+Find the
+Invoice history
+section.
+Click the "View" or "Download" button next to the invoice you want to open.
+Clicking "Download" will automatically start the file download.
+Clicking "View" opens a new Stripe tab where you can click "Download invoice."
+Additionally, after each purchase, we automatically send them to your registered billing email address.
+Expired credit grants will appear in the
+Invoice history
+section. For help accessing older receipts and invoices not available in the Claude Console, please
+contact our Support team
+.
+Related Articles
+How do I pay for my Claude API usage?
+Cost and Usage Reporting in the Claude Console
+Creating and managing Workspaces in the Claude Console
+Claude Console roles and permissions
+How can I delete my Claude Console account?

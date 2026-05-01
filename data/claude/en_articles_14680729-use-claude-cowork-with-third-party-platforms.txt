@@ -1,0 +1,127 @@
+# Use Claude Cowork with third-party platforms
+
+If your organization uses Amazon Bedrock, Google Cloud Vertex AI, Azure AI Foundry, or an LLM gateway to access Claude, you can deploy Claude Cowork to run on the same infrastructure. Prompts and completions route through your inference provider, so Anthropic never sees them, while users get the same Cowork experience: delegate long-running tasks to Claude, work with local files, and use MCP connectors. Your IT team configures the deployment via MDM.
+This deployment supports both Claude Cowork (the long-running task experience) and Claude Code Desktop (CCD), an agentic coding interface for developers who prefer a graphical environment over a terminal. For more on CCD, see
+Use Claude Code Desktop
+.
+Who this is for
+This deployment option is built for organizations that need to keep model inference on infrastructure they control. That typically means:
+Companies that already run Claude through a third-party platform
+Organizations with a private LLM gateway standing between users and model APIs
+Public sector teams and regulated industries with data residency requirements
+For organizations that access Claude through Anthropic directly, see
+Get started with Claude Cowork
+.
+Supported inference providers
+Claude Cowork works with any of the following third-party platforms:
+Amazon Bedrock
+— direct connection or via a VPC interface endpoint
+Google Cloud Vertex AI
+— public regional endpoint or Private Service Connect
+Azure AI Foundry
+— using your Foundry resource and API key
+LLM gateway
+— any gateway that exposes /v1/messages and forwards the anthropic-beta and anthropic-version headers
+The gateway option is the most flexible. If your organization already proxies Claude Code or API traffic through an internal gateway, Claude Cowork reuses the same endpoint.
+Architecture and data flow
+Claude Desktop runs on each user's machine, so the agent loop, file tools, and plugin-bundled MCP servers run locally within Cowork. There are three outbound paths from the application, all of which your admin controls:
+Model inference
+— prompts and completions route to your cloud provider. Anthropic never sees this traffic.
+Remote MCP
+— connections to MCP servers on an admin-managed allowlist.
+Telemetry
+— usage and debugging metrics sent to Anthropic. No prompts, file contents, or credentials. Can be fully disabled.
+For deeper detail on the security architecture, see the
+Claude Cowork Security Overview (Third-party platforms) in our Trust Center
+.
+Data residency
+Data residency is determined by your choice of cloud provider and region. Because inference routes through your infrastructure, residency is under your control and governed by your provider agreement.
+How it compares to Claude Enterprise
+Deploying Claude Cowork on a third-party platform delivers a subset of the features available on Claude Enterprise.
+Area
+Claude Enterprise
+Third-party deployment
+Chat, file uploads, tool use
+Available
+Available
+Local filesystem access
+Available
+Available
+Local and remote MCP
+Available
+Available
+Skills and plugins
+Available
+Local or admin-pushed to user machines
+Memory
+Available
+Available (local)
+Web search
+Available
+Available on Vertex and Azure
+VDI support
+Available
+Available
+Per-user rate limits
+Available
+Blanket limits supported; per-user via gateway
+OpenTelemetry export
+Available
+Available
+Account management UI
+Available
+Not available
+Projects and org sharing
+Available
+Not available
+Compliance and analytics APIs
+Available
+Not available
+Skills and plugin marketplace
+Available
+Not available
+Other differences worth noting:
+Configuration
+— Claude Enterprise uses a web-based admin UI. Third-party deployments are configured entirely via MDM, with a setup UI provided for building configuration files.
+Inference
+— Claude Enterprise uses Anthropic's API. Third-party deployments route through your cloud provider.
+Features not available
+— the Chat tab, project and plugin sharing, Dispatch and mobile, voice mode, Claude in Chrome, computer use, and the skills and plugin marketplace aren't available.
+Virtual Desktop Infrastructure (VDI) support
+Claude Cowork runs in VDI environments that support nested virtualization. Supported platforms include Azure Virtual Desktop, Windows 365 on nested-virt-capable SKUs, and Citrix or VMware Horizon on customer-managed vSphere or Hyper-V.
+AWS WorkSpaces, AWS AppStream 2.0, Google Cloud Workstations, and Citrix DaaS on AWS or GCP aren't supported. GPU-enabled instances such as Azure N-series and vSphere with PCI passthrough don't expose nested virtualization regardless of platform.
+For on-premises vSphere or Hyper-V deployments, nested virtualization is typically off by default and must be enabled on the VM template or catalog. Anthropic provides lightweight readiness-check binaries for Darwin, Windows x64, and Windows ARM64—see below for current download links.
+For Darwin (MacOS):
+Link
+For Windows x64:
+Link
+For Windows arm64:
+Link
+If you use FSLogix or roaming profiles, redirect the vm_bundles folder to local ephemeral storage rather than syncing it with the roaming profile. The folder stores about 10 GB of baseline VM data, and syncing it causes profile bloat and latency.
+Pricing
+Third-party deployments have no seat-based licensing from Anthropic. Usage costs follow your existing Bedrock, Vertex, or Azure agreement based on token consumption.
+Frequently asked questions
+Does Anthropic see our prompts or completions?
+No. With a third-party platform, all inference routes directly to your cloud provider. The only data Anthropic collects is usage telemetry (token counts and error diagnostics), which can be fully disabled via MDM.
+Do we need new infrastructure?
+No. If you already run Claude Code through an LLM gateway, Claude Cowork uses the same endpoint. The gateway needs to expose /v1/messages and forward the anthropic-beta and anthropic-version headers.
+How are credentials managed?
+API keys and gateway URLs are delivered via MDM or configured at first launch. They're stored locally on each user's machine and are never sent to Anthropic.
+What MCP servers are supported?
+Both local (stdio) and remote (HTTP or SSE) MCP servers work. Admins can allowlist remote servers via MDM, route traffic through an internal gateway, and set tool-level allow, ask, or blocked policies per server. For more information, see
+Extend Claude Cowork with third-party platforms
+.
+What compliance frameworks apply?
+Because Anthropic doesn't see inference data in this deployment, most compliance concerns are addressed at your cloud provider layer. For questions about specific frameworks, contact your account representative.
+How do users log in?
+Users receive API key credentials through their admin, either as a static key or via a custom credential script. No Anthropic account or login is required.
+Can we use Claude for Excel, PowerPoint, and Word with third-party platforms?
+Yes. The Office add-ins (Excel, PowerPoint, and Word) support third-party platforms. They use the same providers—Amazon Bedrock, Google Cloud Vertex AI, Azure AI Foundry, or an LLM gateway. For setup, see
+Use Claude for Excel, PowerPoint, and Word with third-party platforms
+. Cowork 3P does not communicate directly with Claude for Excel, PowerPoint, and Word.
+Related Articles
+Use Claude Cowork safely
+Use plugins in Claude Cowork
+Use Claude for Excel, PowerPoint, and Word with third-party platforms
+Install and configure Claude Cowork with third-party platforms
+Extend Claude Cowork with third-party platforms

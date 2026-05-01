@@ -1,0 +1,120 @@
+# Extend Claude Cowork with third-party platforms
+
+When Claude Cowork is deployed on Amazon Bedrock, Google Cloud Vertex AI, Azure AI Foundry, or an LLM gateway, MCP connectors, plugins, and skills work differently than they do on Claude Enterprise. Everything is controlled via MDM and local filesystem mounts, with a local setup interface and configuration pushed via MDM.
+This article covers admin controls (allowlisting, distribution, policies) and the end-user experience (what's available, what isn't).
+MCP connectors
+MCP (Model Context Protocol) lets Claude connect to tools and data sources beyond what's built into Claude Desktop. Both local MCP servers running on the user's machine and remote MCP servers accessed over HTTP or SSE are supported.
+Admin-managed remote MCP servers
+Use the
+managedMcpServers
+MDM key to distribute remote MCP servers to users. Each entry in the JSON array requires a unique name and an HTTPS URL. Optional fields include transport, headers, OAuth configuration, and tool-level policies.
+Example configuration:
+[
+{
+"name": "internal-tools",
+"url": "https://mcp.example.corp/sse",
+"transport": "sse",
+"headers": {
+"Authorization": "Bearer <token>"
+},
+"toolPolicy": {
+"runShell": "blocked",
+"searchDocs": "allow"
+}
+}
+]
+transport
+can be "http" (default) or "sse".
+headers
+and
+oauth
+are mutually exclusive. If you set
+oauth: true
+, Claude Desktop runs a PKCE flow to acquire user credentials. Otherwise, use headers for static authentication.
+toolPolicy
+maps tool names to "allow", "ask", or "blocked". The ask policy prompts the user for confirmation before the tool runs.
+User-added local MCP servers
+By default, users can add their own local MCP servers (stdio transport). To restrict this, set
+isLocalDevMcpEnabled = false
+in your MDM configuration. When false, only servers from the managed list are available, and users can't add their own.
+Disabling built-in tools
+Claude Desktop includes several built-in tools: Task, Bash, Glob, Grep, Read, Edit, Write, NotebookEdit, WebFetch, TodoWrite, WebSearch, Skill, REPL, JavaScript, and AskUserQuestion. Two more—ToolSearch and SendUserMessage—are available under specific conditions.
+To remove tools from the available set, add them to the disabledBuiltinTools array. For example:
+disabledBuiltinTools = ["WebSearch", "Bash"]
+Plugins
+Plugins bundle skills, commands, subagents, and MCP servers for specific roles or teams. In standard Claude Cowork, admins distribute plugins through the Anthropic admin UI. With third-party platforms, plugins are distributed via a local directory mount on each machine.
+Plugin mount location
+Place plugin folders at:
+macOS
+: /Library/Application Support/Claude/org-plugins/
+Windows
+: C:\ProgramData\Claude\org-plugins\
+Push the directory contents via MDM, a software distribution tool, or your standard endpoint management process.
+Plugin directory structure
+Each plugin follows this structure inside the mount location:
+code_reviewer_plugin/
+claude-plugin/
+plugin.json
+version.json
+.mcp.json        (same format as managedMcpServers)
+agents/
+code-reviewer.md
+commands/
+find-all-bugs.md
+skills/
+security-review/
+security-review.md
+The
+plugin.json
+file declares the plugin's metadata. The
+version.json
+file tracks version info. The
+.mcp.json
+file declares any MCP servers the plugin bundles—its format matches the
+managedMcpServers
+schema above.
+Desktop extensions
+Desktop extensions (
+.dxt
+and
+.mcpb
+files) are local extensions users can install from the connectors UI. Three MDM keys control this:
+isDesktopExtensionEnabled
+— allows users to install local desktop extensions
+isDesktopExtensionDirectoryEnabled
+— shows the Anthropic extension directory in the connectors UI
+isDesktopExtensionSignatureRequired
+— rejects extensions that aren't signed by a trusted publisher
+For stricter deployments, set signature requirement to true and disable the Anthropic extension directory so users only install signed extensions your team has vetted.
+Skills
+Skills are Anthropic's format for packaging domain-specific instructions and context. With third-party platforms, skills are local only—they ship as part of plugins or as standalone additions to the local plugin directory.
+The skills and plugin marketplace available in Claude Enterprise isn't available with third-party platforms. If your organization wants a curated skills catalog, distribute skills as part of your plugin rollout via the same mount directory described above.
+What's not available with third-party platforms
+These extensibility features are available in Claude Enterprise but not when Claude Cowork is deployed on a third-party platform:
+Skills and plugin marketplace
+— no centralized catalog. Distribute via MDM instead.
+Project and plugin sharing
+— sharing between users requires chat and project features that aren't available.
+Custom roles for MCP and plugins
+— role-based access control through the admin UI isn't available. Use MDM configs and OS-level user groups for differentiated access.
+Admin UI for user management
+— user management happens at the cloud provider and MDM layer, not through Anthropic.
+Frequently asked questions
+Can plugins require admin approval before a user installs them?
+Plugins you distribute via the org-plugins directory are available to all users on that machine—no per-user approval step. For stricter controls, combine the mount-based distribution with a signed desktop extension workflow (
+isDesktopExtensionSignatureRequired = true
+).
+What MCP servers ship with this deployment?
+MCP servers do not ship by default with Claude Code on third-party inference. All MCP servers must be allowlisted via MDM.
+Can users share MCP credentials across machines?
+Credentials in headers are delivered via MDM and tied to the machine's configuration. For user-specific credentials, use the
+oauth: true
+option, which triggers a PKCE flow at first use.
+How do I update a plugin after it's deployed?
+Replace the plugin folder in the org-plugins mount and push the updated version through your existing software distribution tool. Users see the new version at the next app restart.
+Related Articles
+Use plugins in Claude Cowork
+Use Claude for Excel, PowerPoint, and Word with third-party platforms
+Claude Cowork desktop architecture overview
+Use Claude Cowork with third-party platforms
+Install and configure Claude Cowork with third-party platforms

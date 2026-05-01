@@ -1,0 +1,236 @@
+# Install and configure Claude Cowork with third-party platforms
+
+This guide walks IT admins through deploying Claude Cowork on Amazon Bedrock, Google Cloud Vertex AI, Azure AI Foundry, or an LLM gateway. It covers download, MDM configuration for macOS and Windows, provider-specific setup, and the full MDM key reference.
+If you're evaluating whether this deployment is right for your organization, start with Claude Cowork with third-party platforms.
+Before you begin
+Make sure you have:
+Platform access
+— macOS 13.0 (Ventura) or later, or Windows 10 or 11. On Windows, the Virtual Machine Platform feature must be enabled, which requires a one-time system restart.
+An inference provider
+— Amazon Bedrock, Google Cloud Vertex AI, Azure AI Foundry, or an LLM gateway that exposes /v1/messages.
+Credentials for that provider
+— an API key, bearer token, service-account JSON, or Foundry key, depending on which provider you're using.
+MDM access
+— Jamf, Kandji, Mosyle, or similar for macOS. Intune or Group Policy for Windows.
+Download the installer
+Download Claude Desktop for your platform from
+the download page
+. The same binary ships for standard Claude Cowork and third-party deployments—the MDM configuration profile determines which mode the app runs in.
+macOS
+Download the macOS installer from
+the download page
+.
+Open the .dmg file.
+Drag Claude.app to your Applications folder.
+Configure third-party inference using the setup UI (next section).
+Apply the MDM configuration (below Configuration section).
+Windows
+Download the Windows installer from
+the download page
+.
+Run the .msix installer. It's designed for enterprise deployments and can be pushed via Intune or Group Policy.
+Follow the on-screen prompts.
+Configure third-party inference using the setup UI (next section).
+Apply the MDM configuration (below Configuration section).
+Configure third-party inference via the Setup UI
+Open the downloaded Claude Desktop app (you do not need to log in). Navigate to the Menu Bar, and select Help → Troubleshooting → Enable Developer mode. With Developer mode enabled, go Developer → Configure third-party inference. This activates a setup UI to configure the required fields. You can find more information about each field here:
+Configuration reference
+.
+Apply the MDM configuration
+After installing, apply a managed configuration profile to activate the third-party platform mode and point the app at your inference provider.
+macOS
+From the Setup UI, select Export to download a .mobileconfig file for distribution.
+Deploy a .mobileconfig configuration file via your MDM solution.
+Domain
+: com.anthropic.claudefordesktop
+Delivery
+: Jamf, Kandji, Mosyle, Intune for Mac, or any MDM that supports App Configuration
+Windows
+From the Setup UI, select Export to download a .reg file for distribution.
+Registry path
+: HKCU\SOFTWARE\Policies\Claude
+Delivery
+: Group Policy, Intune, or any MDM that supports .reg files
+VDI deployments
+In VDI environments, the same MDM keys apply. Either set them in your golden image (so every cloned session inherits them) or push them at runtime through your VDI broker's policy system.
+Set up plugins
+Plugins extend Claude's capabilities with role-specific bundles of skills, commands, and MCP servers. With third-party platforms, plugins are distributed via a local directory mount on each machine.
+Place your plugin folders at:
+macOS
+: /Library/Application Support/Claude/org-plugins/
+Windows
+: C:\ProgramData\Claude\org-plugins\
+For plugin structure and management details, see
+Extend Claude Cowork with third-party platforms
+.
+Verify the installation
+Launch Claude Desktop on a test machine. You should see:
+Cowork and Code tabs in the left navigation
+No Chat tab (chat isn't available in this deployment)
+The option to log in via Gateway or your inference provider
+If users see an error at launch, check that the inferenceProvider key is set and that provider credentials are valid. Use console logs on macOS or Event Viewer on Windows for deeper debugging.
+Configuration key reference
+The tables below cover every available MDM key as of April 2026. All keys are optional unless noted. For the current list and any additions, contact your account representative.
+Inference settings
+Key
+Type
+Description
+inferenceProvider
+string
+Selects the inference backend. Setting this key activates the third-party platform mode. Values: bedrock, vertex, foundry, gateway.
+inferenceGatewayBaseUrl
+string
+Gateway base URL. Required when provider = gateway.
+inferenceGatewayApiKey
+string
+API key for the gateway. Required when provider = gateway.
+inferenceGatewayAuthScheme
+string
+How the gateway credential is sent (auto / x-api-key / bearer).
+inferenceGatewayHeaders
+string (JSON array of "Name: Value" strings)
+Optional extra HTTP headers sent to your gateway on every inference request.
+inferenceVertexProjectId
+string
+GCP project ID. Required when provider = vertex.
+inferenceVertexRegion
+string
+GCP region. Required when provider = vertex.
+inferenceVertexCredentialsFile
+string
+Absolute path to a service-account JSON or ADC file. No tilde or env-variable expansion. Required when provider = vertex.
+inferenceVertexBaseUrl
+string
+Override the Vertex AI endpoint (for example, Private Service Connect). Leave unset to use the public regional endpoint.
+inferenceVertexOAuthClientId
+string
+OAuth client ID for an interactive per-user Google sign-in, as an alternative to a shared service-account file.
+inferenceVertexOAuthClientSecret
+string
+OAuth client secret paired with the client ID above.
+inferenceVertexOAuthScopes
+string (JSON array of scope string)
+JSON string array of OAuth scopes to request. Defaults to the scope required for Vertex prediction.
+inferenceBedrockRegion
+string
+AWS region. Required when provider = bedrock.
+inferenceBedrockBearerToken
+string
+AWS bearer token. Required when provider = bedrock.
+inferenceBedrockBaseUrl
+string
+Override the Bedrock endpoint (for example, VPC interface endpoint or LLM gateway). Leave unset to use the public regional endpoint.
+inferenceBedrockProfile
+string
+AWS named profile from ~/.aws/config. Use when credentials are managed by AWS CLI, SSO, or an enterprise credential process.
+inferenceBedrockAwsDir
+string
+Absolute path to the directory containing AWS config/credentials files, if not the default ~/.aws. Copied into the sandbox so the named profile resolves there.
+inferenceFoundryResource
+string
+Azure AI Foundry resource name. Required when provider = foundry.
+inferenceFoundryApiKey
+string
+Azure AI Foundry API key. Required when provider = foundry.
+inferenceModels
+string
+JSON array of model IDs or aliases (sonnet, opus, haiku). First entry is the picker default. Required for Vertex, Bedrock, and Foundry.
+inferenceCredentialHelper
+string
+Absolute path to an executable whose stdout is the inference credential. Runs on the host at session start.
+inferenceCredentialHelperTtlSec
+integer
+How long (in seconds) to cache the helper output. Default: 3600.
+Deployment and auto-update
+Key
+Type
+Description
+deploymentOrganizationUuid
+string
+Stable UUID identifying this deployment. Scopes local storage and telemetry.
+autoUpdaterEnforcementHours
+integer
+When set, forces a pending update to install after this many hours regardless of user activity. When unset, the app uses a 72-hour window but defers while the user is active.
+disableAutoUpdates
+boolean
+Blocks the app from checking for and downloading updates. The app stays on its installed version until updated by other means.
+Telemetry
+Key
+Type
+Description
+disableEssentialTelemetry
+boolean
+Blocks crash and error reports and performance timing data sent to Anthropic.
+disableNonessentialTelemetry
+boolean
+Blocks product-usage analytics — feature usage, navigation patterns, UI actions.
+disableNonessentialServices
+boolean
+Blocks connector favicons (which leak MCP hostnames) and the artifact-preview sandbox. Connectors fall back to letter icons; artifacts don't render.
+otlpEndpoint
+string
+Base URL of your OTLP collector. When set, sessions export logs and metrics (prompts, tool calls, token counts). The endpoint host is automatically added to the sandbox network allowlist.
+otlpProtocol
+string
+http/protobuf (default), http/json, or grpc.
+otlpHeaders
+string
+Comma-separated key=value pairs sent on every OTLP request (standard OTEL_EXPORTER_OTLP_HEADERS format).
+MCP, plugins, and tools
+Key
+Type
+Description
+isDesktopExtensionEnabled
+boolean
+Permit users to install local desktop extensions (.dxt or .mcpb).
+isDesktopExtensionDirectoryEnabled
+boolean
+Show the Anthropic extension directory in the connectors UI.
+isDesktopExtensionSignatureRequired
+boolean
+Reject desktop extensions that aren't signed by a trusted publisher.
+isLocalDevMcpEnabled
+boolean
+Permit users to add their own local MCP servers. When false, only servers from the managed list are available.
+isClaudeCodeForDesktopEnabled
+boolean
+Show the Code tab (terminal-based coding sessions). Sessions run on the host, not inside the VM.
+managedMcpServers
+string
+JSON array of remote MCP server configs. Each entry requires name and url. Optional: transport (http or sse), headers, oauth, toolPolicy.
+disabledBuiltinTools
+string
+JSON array of tool names to remove from the agent tool list. See the MCP article for the full tool list.
+coworkEgressAllowedHosts
+String (JSON array of hostnames)
+Absolute paths users may attach as workspace folders. Leading ~ expands to the user’s home. When set, any path outside this list is rejected.
+Workspace and usage caps
+Key
+Type
+Description
+allowedWorkspaceFolders
+string
+JSON array of absolute paths the user may attach as workspace folders. Leading ~ expands to the per-user home directory. Unset = unrestricted.
+inferenceMaxTokensPerWindow
+integer
+Total input+output tokens permitted per tumbling window before sendMessage is refused. Enforced in the desktop main process. Unset = no cap.
+inferenceTokenWindowHours
+integer
+Tumbling window length for the token cap. Max 720h (30 days). The counter resets when now >= windowStartMs + windowHours×3600×1000.
+Next steps
+For additional setup details, see our
+Cowork on 3P docs
+.
+For compliance and security posture details, review the
+Claude Cowork Security Overview (Third-party platforms) in our Trust Center
+.
+Set up MCP servers and distribute plugins:
+Extend Claude Cowork with third-party platforms
+Monitor deployments with OpenTelemetry:
+Monitor Claude Cowork activity with OpenTelemetry
+Related Articles
+Enterprise configuration for Claude Desktop
+Use Claude for Excel, PowerPoint, and Word with third-party platforms
+Claude Cowork desktop architecture overview
+Use Claude Cowork with third-party platforms
+Extend Claude Cowork with third-party platforms

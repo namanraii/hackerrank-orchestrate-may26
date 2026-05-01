@@ -1,0 +1,11 @@
+# Where do I find Claude in Amazon Bedrock documentation?
+
+Visit the Claude in Amazon Bedrock
+user guide
+.
+Related Articles
+What is Amazon Bedrock?
+How do I get access to Claude in Amazon Bedrock?
+I use Claude in Amazon Bedrock. Who do I contact for customer support inquiries?
+What AWS Regions are Claude models available in Amazon Bedrock?
+Claude Code FAQ

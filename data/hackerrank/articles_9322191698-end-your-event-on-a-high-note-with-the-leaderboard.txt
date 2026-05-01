@@ -1,0 +1,50 @@
+# End your Event on a High Note With the Leaderboard
+
+Submit a Request
+Academy
+Product Updates
+All Collections
+›
+Engage
+End your Event on a High Note With the Leaderboard
+Last updated 1 year ago
+Once the event is completed, create a buzz about your tech brand by publishing the event leaderboard from the
+Candidates
+tab.
+To verify if the winners on the leaderboard are correctly tagged, click
+View Report
+to confirm the detailed report of the winners on the HackerRank UI.
+If you need to, you can also use the Download Challenge Reports option to download the CSV export of candidates once the Event ends, to verify the winner list across other criteria using the CSV report.
+You can then publish the leaderboard on the microsite.
+Once the leaderboard is published, reach out to the winners using the
+Scheduled Emails/Emails
+capability.
+You will need to select relevant candidates or winners and then select Email to start drafting an email to all the winners. You can send the email right away or schedule to send it at a later time. You can find all the email stats related to Scheduled Emails/Emails under the
+Scheduled Emails/Emails
+tab of the
+Outreach
+tab.
+Related Articles
+Source and Manage Candidates for Events
+Set Up a Microsite
+View Event Statistics
+Create an Event
+HackerRank Engage - Marketing Best Practices
+Information & Security
+Security
+Privacy Policy
+Terms of Service
+Resources
+API
+Roles Directory
+Blog
+About Us
+News Room
+Customer Stories
+Trust
+Get Started
+Platform
+Pricing
+Free Trial
+Powered by
+Pylon

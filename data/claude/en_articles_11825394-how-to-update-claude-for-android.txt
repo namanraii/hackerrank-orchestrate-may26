@@ -1,0 +1,18 @@
+# How to update Claude for Android
+
+If you aren’t seeing the latest features on Claude for Android, you may need to
+update your mobile app manually by following these instructions from Google
+:
+Open the Google Play Store app .
+At the top right, tap the profile icon.
+Tap “Manage apps & device.”
+Under
+Updates available
+, tap “See details.”
+Tap “Update” next to Claude for Android.
+Related Articles
+How can I uninstall Claude for Android?
+How can I cancel my Claude Pro subscription on Claude for Android?
+Using the Claude Widget on Android
+How to update Claude for iOS
+Using Claude with Android Apps

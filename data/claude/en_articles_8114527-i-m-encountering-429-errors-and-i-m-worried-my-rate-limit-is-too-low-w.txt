@@ -1,0 +1,17 @@
+# I’m encountering 429 errors, and I’m worried my rate limit is too low. What should I do?
+
+Your Claude API organization's rate limit depends on your usage tier, which will increase automatically from Tier 1 to Tier 4 as you reach certain thresholds while using the API. Your usage tier also determines your monthly spend limit, which increases as you progress through the tiers. You can see your organization’s tier at
+Settings > Limits
+.
+Refer to the
+Rate limits page in our Claude docs
+for more information.
+If you're interested in custom rate limits, please
+contact our Sales team
+.
+Related Articles
+Our approach to rate limits for the Claude API
+How can I advance my Claude API usage to Tier 2?
+Manage extra usage for Team and seat-based Enterprise plans
+Claude Code FAQ
+Manage extra usage for paid Claude plans

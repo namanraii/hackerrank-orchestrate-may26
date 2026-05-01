@@ -1,0 +1,18 @@
+# How do I view and sign your Data Processing Addendum (DPA)?
+
+This article is about our commercial products (e.g. Claude for Work, Claude API). For our consumer products (e.g. Claude Free, Claude Pro), see
+here
+.
+Anthropic’s DPA with Standard Contractual Clauses (SCCs) is automatically incorporated into our
+Commercial Terms of Service
+, and can be viewed
+here
+. When you accept Anthropic’s Commercial Terms of Service, you also accept our DPA.
+Important note for third-party platform users:
+If you access Claude via a third-party platform or service provider, your use of Claude in those cases is governed by the third-party platform's terms of service.
+Related Articles
+Does Anthropic Act as a Data Processor or Controller?
+Who owns and manages the data of my Claude for Education account?
+Logging in to your Claude account
+Public Sector FAQs
+Use Claude Cowork with third-party platforms

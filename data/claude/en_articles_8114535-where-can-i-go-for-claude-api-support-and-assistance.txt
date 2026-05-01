@@ -1,0 +1,21 @@
+# Where can I go for Claude API support and assistance?
+
+For our API users, we currently maintain three main resources:
+Our
+Client Software Development Kits (SDKs)
+;
+Our
+Claude Docs
+; and
+Our community
+Discord
+where developers can share ideas and exchange tips.
+If you need to
+contact our Support team
+, you can do so by clicking on the message icon in the bottom right of our Help Center, or by clicking your initials in the lower left corner of your Claude Console account, then "Get help."
+Related Articles
+How can I access the Claude API?
+How can I advance my Claude API usage to Tier 2?
+Claude Code usage analytics
+Claude Code FAQ
+Using Claude in Microsoft Foundry
